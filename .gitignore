@@ -127,3 +127,12 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+/.gitignore
+/.gitattributes
+/orioks_parser.py
+/config.py
+/.vs/
+/Binance-Parser
+/.vs/Binance-Parser/v17/.suo
+/Binance-Parser.pyproj
+/Binance-Parser.pyproj.user
