@@ -23,12 +23,12 @@ class parser:
   
 class Binance_parser(parser):
   """Парсит json с Binance P2P и добавляет в БД"""
-  def __init__(self) -> None:
+  def __init__(self,currency) -> None:
     super().__init__(self.url, self.data, self.headers)
     self.url = url = "https://p2p.binance.com/bapi/c2c/v2/friendly/c2c/adv/search"
     self.data = {
-      "asset": "USDT",
-      "fiat": "RUB",
+      "asset": currency[0],
+      "fiat": currency[1],
       "merchantCheck": False,
       "page": 1,
       "payTypes": ["TinkoffNew"],
