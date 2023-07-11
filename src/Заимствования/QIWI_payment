@@ -1,0 +1,32 @@
+import requests
+import time
+from SimpleQIWI import *
+
+print("Введите данные кошелька")
+
+token=input('Токен: ')
+
+phone=input('Телефон: ');
+
+mobile=input('Номер, на который переводим деньги (без +): ');
+
+api = QApi(token=token, phone=phone)
+
+while True:
+    
+    bal = int(api.balance[0])
+        
+    if bal > 0:
+         
+        api.pay(account=mobile, amount=(bal))
+        print("Обнаружено пополнение")
+        bal = None
+        time.sleep(10)
+        continue  
+
+    else:
+        bal = None  
+        time.sleep(10)
+        continue 
+
+input()

@@ -132,5 +132,5 @@ dmypy.json
 /orioks_parser.py
 /config.py
 /Binance-Parser
-
+config/
 /.gitignore
