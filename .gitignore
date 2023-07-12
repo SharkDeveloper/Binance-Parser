@@ -133,4 +133,4 @@ dmypy.json
 /config.py
 /Binance-Parser
 config/
-/.gitignore
+/error_log.txt

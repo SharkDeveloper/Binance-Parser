@@ -1,11 +1,11 @@
 ﻿import psycopg2
 from psycopg2.extensions import ISOLATION_LEVEL_AUTOCOMMIT
-from config.config import user,password
+from .config.config import psql_password,psql_user
 
 
 class Create_DB_PostgreSQL:
     def __init__(self) -> None:
-        self.connection = psycopg2.connect(user = user,password = password,host = "127.0.0.1", port = "5432",database="binance_p2p_db")
+        self.connection = psycopg2.connect(user = psql_user ,password = psql_password,host = "127.0.0.1", port = "5432",database="binance_p2p_db")
         self.connection.set_isolation_level(ISOLATION_LEVEL_AUTOCOMMIT)    
         self.cursor = self.connection.cursor()
         
