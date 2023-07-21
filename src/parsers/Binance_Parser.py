@@ -4,28 +4,8 @@ import json
 from datetime import datetime
 
 
-class parser:
-  """Делает запрос сайта и переводит в json для дальнейшей обработки"""
-  def __init__(self,url,data,headers) -> None:
-    self.url = url
-    self.data = data
-    self.headers = headers
-    def get_website(self):
-      """Получет сайт и переводит в json формат"""
-      try:
-        website = requests.post(url = self.url,headers = self.headers,json = self.data)#запрос сайта
-        soup = BeautifulSoup(website.text,"lxml")
-        orders_data = soup.text.replace("<html><body><p>","")#removing excess
-        orders_data = orders_data.replace("</p></body></html>","")#removing excess
-        orders_data = json.loads(orders_data)# json converter
-        return orders_data
-      except:
-        print("Не удалось подключиться к сайту!\nПроверьте интенет соединение...")
-        return "Error"
-    self.orders_data = get_website(self)
-
-class Binance_parser(parser):
-  """Парсит json с Binance P2P и добавляет в БД"""
+"""Делает запрос сайта и переводит в json для дальнейшей обработки"""
+class Binance_parser:
   def __init__(self,currency_asset,currency_fiat,bank) -> None:
     self.url = "https://p2p.binance.com/bapi/c2c/v2/friendly/c2c/adv/search"
     self.bank = bank
@@ -66,11 +46,18 @@ class Binance_parser(parser):
     "x-ui-request-trace":"9511b3e7-39d9-478d-9c5d-acfab3894548"
     }
     
-    
-    super().__init__(self.url, self.data, self.headers)
-    
-
+  """Парсит json с Binance P2P и подготавливает формат для БД"""
   def get_orders(self):
+    """Получет сайт и переводит в json формат"""
+    try:
+      website = requests.post(url = self.url,headers = self.headers,json = self.data)#запрос сайта
+      soup = BeautifulSoup(website.text,"lxml")
+      orders_data = soup.text.replace("<html><body><p>","")#removing excess
+      orders_data = orders_data.replace("</p></body></html>","")#removing excess
+      orders_data = json.loads(orders_data)# json converter
+      self.orders_data = orders_data
+    except:
+      print("Не удалось подключиться к сайту!\nПроверьте интенет соединение...")
     data = self.orders_data
     all_orders = list()
 
@@ -89,8 +76,13 @@ class Binance_parser(parser):
       tup = (datetime.now(),price,amount,Min,Max,orders_complited,orders_rate)
       all_orders.append(tup)
     return all_orders
-  
-  
+  def get_bank():
+    #class="bn-sdd-list css-2rl2kr"
+    return 0
+  def get_crypto_currency():
+    return 0
+  def get_fiat_currency():
+    return 0
   
   
 
